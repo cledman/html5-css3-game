@@ -17,12 +17,12 @@ function start() {
     var perdidos=0;
     var energiaAtual=3;
     var jogo = {}
-    var velocidade=5;
+    var velocidade=8;
     var posicaoY = parseInt(Math.random() * 334);
     var TECLA = {
         W: 87,
         S: 83,
-        SPACE: 32
+        END: 35
     }
     
     jogo.pressionou = [];
@@ -33,15 +33,15 @@ function start() {
     var somGameover=document.getElementById("somGameover");
     var somPerdido=document.getElementById("somPerdido");
     var somResgate=document.getElementById("somResgate");
-    var preview=document.getElementById("preview");
+    var somHell =document.getElementById("hell"); 
 
-
-    preview.addEventListener("ended", function(){ musica.currentTime = 0; musica.play(); }, false);
-    preview.play();
     //M�sica em loop
+    preview.pause();
     musica.addEventListener("ended", function(){ musica.currentTime = 0; musica.play(); }, false);
     musica.play();        
-    
+
+    musica.addEventListener("hell", function(){ somHell.currentTime = 0; somHell.play(); }, false);
+    somHell.play();   
 
 	$(document).keydown(function(e){
 	    jogo.pressionou[e.which] = true;
@@ -69,7 +69,8 @@ function start() {
     function movefundo() {
 	
         esquerda = parseInt($("#fundoGame").css("background-position"));
-        $("#fundoGame").css("background-position",esquerda-1);
+        $("#fundoGame").css("background-position",esquerda-1-(velocidade/1.2));
+        $("#parallax").css("background-position",esquerda-0.4);
     
     } 
 
@@ -79,20 +80,20 @@ function start() {
             var topo = parseInt($("#jogador").css("top"));
             
             if (topo>10) {		
-                $("#jogador").css("top",topo-10);               
+                $("#jogador").css("top",topo-15-(velocidade));               
             }        
         }
         
         if (jogo.pressionou[TECLA.S]) {            
             var topo = parseInt($("#jogador").css("top"));
             if (topo<430) {	
-                $("#jogador").css("top",topo+10);	                    
+                $("#jogador").css("top",topo+15+(velocidade));	                    
             }
             
            
         }
         
-        if (jogo.pressionou[TECLA.SPACE]) {
+        if (jogo.pressionou[TECLA.END]) {
             disparo(); 
             
         }
@@ -106,7 +107,7 @@ function start() {
         $("#inimigo1").css("top",posicaoY);
             
             if (posicaoX<=0) {
-            posicaoY = parseInt(Math.random() * 334);
+            posicaoY = parseInt(Math.random() * 400);
             $("#inimigo1").css("left",694);
             $("#inimigo1").css("top",posicaoY);
                 
@@ -115,7 +116,7 @@ function start() {
 
     function moveinimigo2() {
         posicaoX = parseInt($("#inimigo2").css("left"));
-        $("#inimigo2").css("left",posicaoX-3);
+        $("#inimigo2").css("left",posicaoX-3-(velocidade/3));
                     
             if (posicaoX<=0) {
                 
@@ -392,7 +393,7 @@ function start() {
         fimdejogo=true;
         musica.pause();
         somGameover.play();
-        
+        somHell.pause();
         window.clearInterval(jogo.timer);
         jogo.timer=null;
         
@@ -403,17 +404,21 @@ function start() {
         
         $("#fundoGame").append("<div id='fim'></div>");
         
-        $("#fim").html("<h1> Game Over </h1><p>Sua pontuação foi: " + pontos + "</p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>");
+        $("#fim").html("<h1> Game Over </h1><p>" + pontos + " pts </p>" + "<div id='reinicia' onClick=reiniciaJogo()><h3>Jogar Novamente</h3></div>");
 	} 
 
 } 
 
     //Reinicia o Jogo            
     function reiniciaJogo() {
-        somGameover.pause();
+        somGameover.pause();        
         $("#fim").remove();
         start();
         
     }
 
-	
+    function playTheme(){
+        var preview=document.getElementById("preview");
+        preview.addEventListener("started", function(){ preview.currentTime = 0; preview.play(); }, false);
+        preview.play();
+    }

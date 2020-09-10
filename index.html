@@ -6,32 +6,36 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<body>
+<body onload="playTheme()">
+
 <div id="container"> 
-
-	<div id="fundoGame"> 
 	
-		<div id="inicio" onclick="start()">
-			<div class="instrucoes">
-				<h1> Resgate </h1>
-				<p>W e S para movimentar o helicóptero e ESPAÇO para atirar.</p>
-				<h3> Clique aqui para iniciar!! </h3>
-			</div>
+	<div id="fundoGame"> 
+		<div id="parallax">
+		
+			<div id="inicio" onclick="start()">
+				<div class="instrucoes">
+					<h1> Resgate </h1>
+					<p>W e S para movimentar o helicóptero e END para atirar.</p>
+					<h3> Clique aqui para iniciar!! </h3>
+				</div>
 
-		</div>
+			</div>
+		</div>	
 		
     </div>
 	
 </div>
 
 <!-- Sons do jogo !-->
-<audio src="sons/som.mp3" preload="auto" id="somDisparo"></audio>
+<audio src="sons/somDisparo.mp3" preload="auto" id="somDisparo"></audio>
 <audio src="sons/explosao.mp3" preload="auto" id="somExplosao"></audio>
-<audio src="sons/musica_fundo.mp3" preload="auto" id="musica"></audio>
+<audio src="sons/musica_fundo2.mp3" preload="auto" id="musica"></audio>
 <audio src="sons/gameover2.mp3" preload="auto" id="somGameover"></audio>
 <audio src="sons/perdido.mp3" preload="auto" id="somPerdido"></audio>	
-<audio src="sons/resgate.mp3" preload="auto" id="somResgate"></audio>
-<audio src="sons/preview.mp3" preload="auto" id="preview"></audio>
+<audio src="sons/resgate2.mp3" preload="auto" id="somResgate"></audio>
+<audio src="sons/preview.mp3" preload="auto" id="preview" autoplay ></audio>
+<audio src="sons/hellc.mp3" preload="auto" id="hell" loop></audio>
 
 <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="js/js.js"></script> 
